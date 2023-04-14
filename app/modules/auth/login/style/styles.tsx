@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     gap: 20,
     margin: 10,
     padding: 8,
-    backgroundColor: Colors.primary,
+    // backgroundColor: Colors.primary,
     borderRadius: 10,
   },
   buttonText: {
@@ -99,6 +99,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 15,
+    marginTop: 15,
+    marginBottom: 5,
     borderColor: Colors.secondary,
     borderWidth: 1,
     borderRadius: 10,
@@ -107,6 +109,11 @@ const styles = StyleSheet.create({
     fontWeight: "200",
     color: Colors.secondary,
     fontSize: 20,
+  },
+  error: {
+    width: "80%",
+    color: Colors.error,
+    textAlign: "left",
   },
 });
 

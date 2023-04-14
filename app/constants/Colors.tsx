@@ -24,4 +24,6 @@ export const Colors = {
   text: "#49454F",
   primary: "#F58F00",
   secondary: "#B3B3B3",
+  error: "#DD382F",
+  disabled: "#F4B051",
 };
