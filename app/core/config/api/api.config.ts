@@ -1,0 +1,1 @@
+export const URL_HOST = "https://1329-14-241-254-131.ngrok-free.app/"
