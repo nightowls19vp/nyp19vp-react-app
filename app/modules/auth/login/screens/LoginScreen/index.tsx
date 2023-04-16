@@ -1,15 +1,25 @@
-import React from "react";
-import { TextInput, TouchableOpacity } from "react-native";
-import { View, Text, Image } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome5";
-import { Colors } from "../../../../../constants/Colors";
-import styles from "./styles/styles";
+import { Asset } from "expo-asset";
+import * as SplashScreen from "expo-splash-screen";
 import { Formik } from "formik";
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  AppRegistry,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome5";
 import * as Yup from "yup";
-import { login, validate } from "./services/login.service";
 
-import { Toast } from "@ant-design/react-native";
+import Provider from "@ant-design/react-native/lib/provider";
+import Toast from "@ant-design/react-native/lib/toast";
+
+import { Colors } from "../../../../../constants/Colors";
 import { ILoginRes } from "./interfaces/login.interface";
+import { login } from "./services/login.service";
+import styles from "./styles/styles";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -26,104 +36,139 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
     console.log(e, "I was closed.");
   };
 
-  return (
-    <Formik
-      initialValues={{
-        email: "",
-        password: "",
-      }}
-      validationSchema={LoginSchema}
-      onSubmit={(values) => {
-        // same shape as initial values
-        console.log(values);
-        login({ username: values.email, password: values.password });
-      }}
-    >
-      {({
-        values,
-        errors,
-        touched,
-        setFieldTouched,
-        setFieldValue,
-        isValid,
-        handleChange,
-        handleSubmit,
-      }) => (
-        <View style={styles.container}>
-          <Text style={styles.title}>Đăng nhập</Text>
-          <View style={[styles.inputContainer]}>
-            <TextInput
-              onChangeText={(value) => setFieldValue("email", value)}
-              onBlur={() => setFieldTouched("email")}
-              style={{ flex: 1 }}
-              placeholder={"Email"}
-              value={values.email}
-            />
+  // const [appIsReady, setAppIsReady] = useState(false);
+  //
+  // useEffect(() => {
+  //   async function prepare() {
+  //     console.log("AUTO RUNNNNNNN");
 
-            {values.email && (
+  //     try {
+  //       await _cacheResourcesAsync();
+  //     } catch (e) {
+  //       console.warn(e);
+  //     } finally {
+  //       // Tell the application to render
+  //       setAppIsReady(true);
+  //     }
+  //   }
+
+  //   prepare();
+  // }, []);
+
+  // const onLayoutRootView = useCallback(async () => {
+  //   if (appIsReady) {
+  //     await SplashScreen.hideAsync();
+  //   }
+  // }, [appIsReady]);
+
+  // if (!appIsReady) {
+  //   return null;
+  // }
+
+  // const _cacheResourcesAsync = async () => {
+  //   // need fix
+  //   const images = ["assets/google.png", "assets/facebook.png"];
+
+  //   const cacheImages = images.map((image) => {
+  //     return Asset.fromModule(image).downloadAsync();
+  //   });
+
+  //   return Promise.all(cacheImages);
+  // };
+
+  return (
+    <Provider>
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        validationSchema={LoginSchema}
+        onSubmit={(values) => {
+          // same shape as initial values
+          console.log(values);
+          login({ username: values.email, password: values.password });
+        }}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          setFieldTouched,
+          setFieldValue,
+          isValid,
+          handleChange,
+          handleSubmit,
+        }) => (
+          <View style={styles.container}>
+            <Text style={styles.title}>Đăng nhập</Text>
+            <View style={[styles.inputContainer]}>
+              <TextInput
+                onChangeText={(value) => setFieldValue("email", value)}
+                onBlur={() => setFieldTouched("email")}
+                style={{ flex: 1 }}
+                placeholder={"Email"}
+                value={values.email}
+              />
+
+              {values.email && (
+                <Icon
+                  onPress={() => setFieldValue("email", "")}
+                  name={"times-circle"}
+                  style={styles.inputIcon}
+                ></Icon>
+              )}
+            </View>
+            {touched.email && errors.email && (
+              <Text style={styles.error}>{errors.email}</Text>
+            )}
+
+            <View style={styles.inputContainer}>
+              <TextInput
+                onChangeText={(value) => setFieldValue("password", value)}
+                onBlur={() => setFieldTouched("password")}
+                secureTextEntry={hidePassword}
+                placeholder={"Mật khẩu"}
+                style={{ flex: 1 }}
+                value={values.password}
+              />
+              {values.password && (
+                <Icon
+                  onPress={() => setFieldValue("password", "")}
+                  name={"times-circle"}
+                  style={[styles.inputIcon, { marginRight: 10 }]}
+                />
+              )}
               <Icon
-                onPress={() => setFieldValue("email", "")}
-                name={"times-circle"}
+                onPress={() => setHidePassword(!hidePassword)}
+                name={hidePassword ? "eye-slash" : "eye"}
                 style={styles.inputIcon}
               ></Icon>
+            </View>
+            {touched.password && errors.password && (
+              <Text style={[styles.error]}>{errors.password}</Text>
             )}
-          </View>
-          {touched.email && errors.email && (
-            <Text style={styles.error}>{errors.email}</Text>
-          )}
 
-          <View style={styles.inputContainer}>
-            <TextInput
-              onChangeText={(value) => setFieldValue("password", value)}
-              onBlur={() => setFieldTouched("password")}
-              secureTextEntry={hidePassword}
-              placeholder={"Mật khẩu"}
-              style={{ flex: 1 }}
-              value={values.password}
-            />
-            {values.password && (
-              <Icon
-                onPress={() => setFieldValue("password", "")}
-                name={"times-circle"}
-                style={[styles.inputIcon, { marginRight: 10 }]}
-              />
-            )}
-            <Icon
-              onPress={() => setHidePassword(!hidePassword)}
-              name={hidePassword ? "eye-slash" : "eye"}
-              style={styles.inputIcon}
-            ></Icon>
-          </View>
-          {touched.password && errors.password && (
-            <Text style={[styles.error]}>{errors.password}</Text>
-          )}
-
-          <View
-            style={{
-              width: "80%",
-            }}
-          >
-            <Text style={[styles.textPrimary, { textAlign: "right" }]}>
-              Quên mật khẩu?
-            </Text>
-          </View>
-          <TouchableOpacity
-            onPress={() => {
-              login({ username: values.email, password: values.password }).then(
-                (response: ILoginRes) => {
+            <View
+              style={{
+                width: "80%",
+              }}
+            >
+              <Text style={[styles.textPrimary, { textAlign: "right" }]}>
+                Quên mật khẩu?
+              </Text>
+            </View>
+            <TouchableOpacity
+              onPress={() => {
+                login({
+                  username: values.email,
+                  password: values.password,
+                }).then((response: ILoginRes) => {
                   console.log(response);
                   if (response.statusCode === 200) {
-                    Toast.success({
-                      content: response.message,
-                      duration: 2,
-                      stackable: true,
-                    });
+                    Toast.success(response.message, 1);
                   } else {
-                    Toast.fail({
-                      content: response.message,
-                      duration: 2,
-                      stackable: true,
-                    });
+                    Toast.fail(response.message, 1);
                   }
 
                   // switch (response.statusCode) {
@@ -135,53 +180,56 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
                   //   default:
                   //     break;
                   // }
-                }
-              );
-            }}
-            disabled={!isValid}
-            style={[
-              styles.button,
-              { backgroundColor: isValid ? Colors.primary : Colors.disabled },
-            ]}
-          >
-            <Text style={styles.buttonText}>Đăng nhập</Text>
-          </TouchableOpacity>
-
-          <View style={styles.dividerContainer}>
-            <View style={styles.divider} />
-            <Text style={styles.dividerText}>Hoặc</Text>
-            <View style={styles.divider} />
-          </View>
-
-          <TouchableOpacity style={styles.socialButton}>
-            <Image
-              source={require("../../../../../../assets/google.png")}
-              style={{ ...styles.socialButton.image }}
-            />
-            <Text style={styles.text}>Tiếp tục với Google</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.socialButton}>
-            <Image
-              source={require("../../../../../../assets/facebook.png")}
-              style={{ ...styles.socialButton.image }}
-            />
-            <Text style={styles.text}>Tiếp tục với Facebook</Text>
-          </TouchableOpacity>
-          <View style={styles.flexRow}>
-            <Text style={styles.textPrimary}>Chưa có tài khoản?</Text>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("Register" as never, {} as never);
-                console.log("đăng kí");
+                });
               }}
+              disabled={!isValid}
+              style={[
+                styles.button,
+                {
+                  backgroundColor: isValid ? Colors.primary : Colors.disabled,
+                },
+              ]}
             >
-              <Text style={[styles.textPrimary, styles.registerPrimary]}>
-                Đăng ký
-              </Text>
+              <Text style={styles.buttonText}>Đăng nhập</Text>
             </TouchableOpacity>
+
+            <View style={styles.dividerContainer}>
+              <View style={styles.divider} />
+              <Text style={styles.dividerText}>Hoặc</Text>
+              <View style={styles.divider} />
+            </View>
+
+            <TouchableOpacity style={styles.socialButton}>
+              <Image
+                source={require("../../../../../../assets/google.png")}
+                style={{ ...styles.socialButton.image }}
+              />
+              <Text style={styles.text}>Tiếp tục với Google</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.socialButton}>
+              <Image
+                source={require("../../../../../../assets/facebook.png")}
+                style={{ ...styles.socialButton.image }}
+              />
+              <Text style={styles.text}>Tiếp tục với Facebook</Text>
+            </TouchableOpacity>
+            <View style={styles.flexRow}>
+              <Text style={styles.textPrimary}>Chưa có tài khoản?</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("Register" as never, {} as never);
+                  console.log("đăng kí");
+                }}
+              >
+                <Text style={[styles.textPrimary, styles.registerPrimary]}>
+                  Đăng ký
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      )}
-    </Formik>
+        )}
+      </Formik>
+    </Provider>
   );
 }
+AppRegistry.registerComponent("LoginScreen", () => LoginScreen);

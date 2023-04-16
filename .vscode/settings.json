@@ -1,0 +1,34 @@
+{
+  "cSpell.words": ["stackable"],
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "editor.indentSize": "tabSize",
+  "files.eol": "\n",
+  "editor.fontFamily": "Fira Code",
+  "editor.fontLigatures": true,
+  "terminal.integrated.fontFamily": "monospace",
+  "editor.formatOnSave": true,
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.wordWrap": "on",
+  "editor.mouseWheelZoom": true,
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "terminal.integrated.fontSize": 16,
+  "editor.inlineSuggest.enabled": true,
+  "files.autoSave": "onFocusChange",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "importSorter.generalConfiguration.configurationFilePath": "./import-sorter.json",
+  "importSorter.generalConfiguration.sortOnBeforeSave": false
+}
