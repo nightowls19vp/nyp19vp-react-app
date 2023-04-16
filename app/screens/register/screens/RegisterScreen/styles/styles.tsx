@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../../../constants/Colors";
+import { Colors } from "../../../../../constants/Colors";
 
 const styles = StyleSheet.create({
   container: {
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "80%",
-    height: 50,
+    content: "fill",
     display: "flex",
     justifyContent: "center",
     flexDirection: "row",
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     gap: 20,
     margin: 10,
     padding: 8,
-    backgroundColor: Colors.primary,
+    // backgroundColor: Colors.primary,
     borderRadius: 10,
   },
   buttonText: {
@@ -55,22 +55,23 @@ const styles = StyleSheet.create({
   },
   socialButton: {
     width: "80%",
-    height: 50,
+    content: "fill",
     display: "flex",
     justifyContent: "flex-start",
     flexDirection: "row",
     alignItems: "center",
-    gap: 30,
+    gap: 15,
     marginVertical: 10,
-    paddingLeft: 30,
+    padding: 10,
+    paddingLeft: 20,
     backgroundColor: "white",
     borderColor: Colors.secondary,
     borderWidth: 1,
     borderRadius: 10,
 
     image: {
-      width: 25,
-      height: 25,
+      width: 30,
+      height: 30,
     },
   },
   text: {
@@ -91,6 +92,28 @@ const styles = StyleSheet.create({
   loginPrimary: {
     marginLeft: 10,
     fontWeight: "bold",
+  },
+  inputContainer: {
+    width: "80%",
+    height: 50,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 15,
+    marginTop: 15,
+    marginBottom: 5,
+    borderColor: Colors.secondary,
+    borderWidth: 1,
+    borderRadius: 10,
+  },
+  inputIcon: {
+    fontWeight: "200",
+    color: Colors.secondary,
+    fontSize: 20,
+  },
+  error: {
+    width: "80%",
+    color: Colors.error,
+    textAlign: "left",
   },
 });
 

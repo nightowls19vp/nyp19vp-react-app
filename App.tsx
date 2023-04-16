@@ -6,11 +6,16 @@ import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import LoginScreen from "./app/modules/auth/login/screens/LoginScreen";
-import RegisterScreen from "./app/modules/auth/register/screens/RegisterScreen";
+import LoginScreen from "./app/screens/login/screens/LoginScreen";
+import RegisterScreen from "./app/screens/register/screens/RegisterScreen";
 import View from "@ant-design/react-native/lib/view";
+import { Text } from "react-native";
+import HomeScreen from "./app/screens/home/screens/HomeScreen";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import BottomNavigationBar from "./app/common/components/TabBar";
 
 const Stack = createNativeStackNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -67,11 +72,28 @@ export default function App() {
     return null;
   }
 
+  function ProfileScreen() {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Home!</Text>
+      </View>
+    );
+  }
+
+  function SettingsScreen() {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Settings!</Text>
+      </View>
+    );
+  }
+
   return (
     <NavigationContainer onReady={onLayoutRootView}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Home" component={BottomNavigationBar} />
       </Stack.Navigator>
     </NavigationContainer>
   );

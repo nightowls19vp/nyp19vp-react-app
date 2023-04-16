@@ -16,7 +16,7 @@ import * as Yup from "yup";
 import Provider from "@ant-design/react-native/lib/provider";
 import Toast from "@ant-design/react-native/lib/toast";
 
-import { Colors } from "../../../../../constants/Colors";
+import { Colors } from "../../../../constants/Colors";
 import { ILoginRes } from "./interfaces/login.interface";
 import { login } from "./services/login.service";
 import styles from "./styles/styles";
@@ -160,27 +160,29 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
             </View>
             <TouchableOpacity
               onPress={() => {
-                login({
-                  username: values.email,
-                  password: values.password,
-                }).then((response: ILoginRes) => {
-                  console.log(response);
-                  if (response.statusCode === 200) {
-                    Toast.success(response.message, 1);
-                  } else {
-                    Toast.fail(response.message, 1);
-                  }
+                // login({
+                //   username: values.email,
+                //   password: values.password,
+                // }).then((response: ILoginRes) => {
+                //   console.log(response);
+                //   if (response.statusCode === 200) {
+                //     Toast.success(response.message, 1);
+                //     navigation.navigate("Home" as never, {} as never);
+                //   } else {
+                //     Toast.fail(response.message, 1);
+                //   }
 
-                  // switch (response.statusCode) {
-                  //   case 200:
-                  //     validate(response.accessToken).then((value) => {});
-                  //     break;
-                  //   case 404:
-                  //     console.log("đăng kí");
-                  //   default:
-                  //     break;
-                  // }
-                });
+                //   // switch (response.statusCode) {
+                //   //   case 200:
+                //   //     validate(response.accessToken).then((value) => {});
+                //   //     break;
+                //   //   case 404:
+                //   //     console.log("đăng kí");
+                //   //   default:
+                //   //     break;
+                //   // }
+                // });
+                navigation.navigate("Home" as never, {} as never);
               }}
               disabled={!isValid}
               style={[
@@ -201,14 +203,14 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
 
             <TouchableOpacity style={styles.socialButton}>
               <Image
-                source={require("../../../../../../assets/google.png")}
+                source={require("../../../../../assets/google.png")}
                 style={{ ...styles.socialButton.image }}
               />
               <Text style={styles.text}>Tiếp tục với Google</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.socialButton}>
               <Image
-                source={require("../../../../../../assets/facebook.png")}
+                source={require("../../../../../assets/facebook.png")}
                 style={{ ...styles.socialButton.image }}
               />
               <Text style={styles.text}>Tiếp tục với Facebook</Text>
@@ -218,7 +220,6 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate("Register" as never, {} as never);
-                  console.log("đăng kí");
                 }}
               >
                 <Text style={[styles.textPrimary, styles.registerPrimary]}>

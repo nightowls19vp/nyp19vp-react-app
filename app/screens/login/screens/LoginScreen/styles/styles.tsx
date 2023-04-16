@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../../../constants/Colors";
+import { Colors } from "../../../../../constants/Colors";
 
 const styles = StyleSheet.create({
   container: {
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "80%",
-    height: 50,
+    content: "fill",
     display: "flex",
     justifyContent: "center",
     flexDirection: "row",
@@ -56,22 +56,23 @@ const styles = StyleSheet.create({
   },
   socialButton: {
     width: "80%",
-    height: 50,
+    content: "fill",
     display: "flex",
     justifyContent: "flex-start",
     flexDirection: "row",
     alignItems: "center",
-    gap: 30,
+    gap: 15,
     marginVertical: 10,
-    paddingLeft: 30,
+    padding: 10,
+    paddingLeft: 20,
     backgroundColor: "white",
     borderColor: Colors.secondary,
     borderWidth: 1,
     borderRadius: 10,
 
     image: {
-      width: 25,
-      height: 25,
+      width: 30,
+      height: 30,
     },
   },
   text: {
