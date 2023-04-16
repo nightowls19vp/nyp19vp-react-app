@@ -6,6 +6,6 @@ export interface ILoginReq {
 export interface ILoginRes {
     statusCode: number;
     message: string;
-    accessToken: string;
-    refreshToken: string;
+    accessToken?: string;
+    refreshToken?: string;
 }
