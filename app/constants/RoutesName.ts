@@ -3,11 +3,15 @@ export default {
   REGISTER: "Đăng ký",
   FORGOT_PASSWORD: "Quên mật khẩu",
 
-  HOME: "Home",
+  HOME_NAV: "MEGOO",
   HOME_TAB: "Trang chủ",
   HOME_DRAWER: "Home Drawer",
 
-  PROFILE: "Tôi",
+  PACKAGE: "Quản lý gói",
+
+  STORAGE: "Quản lý kho",
+
+  PROFILE: "Trang cá nhân",
 
   SETTINGS: "Cài đặt",
 };

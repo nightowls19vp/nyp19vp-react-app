@@ -20,6 +20,7 @@ import { Colors } from "../../../../constants/Colors";
 import { ILoginRes } from "./interfaces/login.interface";
 import { login } from "./services/login.service";
 import styles from "./styles/styles";
+import RoutesName from "../../../../constants/RoutesName";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -182,7 +183,10 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
                 //   //     break;
                 //   // }
                 // });
-                navigation.navigate("Home" as never, {} as never);
+                navigation.navigate(
+                  RoutesName.HOME_DRAWER as never,
+                  {} as never
+                );
               }}
               disabled={!isValid}
               style={[
@@ -219,7 +223,10 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
               <Text style={styles.textPrimary}>Chưa có tài khoản?</Text>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("Register" as never, {} as never);
+                  navigation.navigate(
+                    RoutesName.REGISTER as never,
+                    {} as never
+                  );
                 }}
               >
                 <Text style={[styles.textPrimary, styles.registerPrimary]}>

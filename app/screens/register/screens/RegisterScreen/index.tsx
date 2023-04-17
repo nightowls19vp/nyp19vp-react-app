@@ -6,6 +6,7 @@ import { Colors } from "../../../../../app/constants/Colors";
 import styles from "./styles/styles";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import RoutesName from "../../../../constants/RoutesName";
 
 const RegisterSchema = Yup.object().shape({
   name: Yup.string().required("Vui lòng nhập họ và tên"),
@@ -199,7 +200,7 @@ export default function RegisterScreen({ navigation }: { navigation: any }) {
             <Text style={styles.textPrimary}>Đã có tài khoản?</Text>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Login" as never, {} as never);
+                navigation.navigate(RoutesName.LOGIN as never, {} as never);
                 console.log("đăng nhập");
               }}
             >

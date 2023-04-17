@@ -8,14 +8,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import LoginScreen from "./app/screens/login/screens/LoginScreen";
 import RegisterScreen from "./app/screens/register/screens/RegisterScreen";
-import View from "@ant-design/react-native/lib/view";
-import { Text } from "react-native";
-import HomeScreen from "./app/screens/home/screens/HomeScreen";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import BottomNavigationBar from "./app/common/components/TabBar";
+import RoutesName from "./app/constants/RoutesName";
+import DrawerNavigation from "./app/common/components/DrawerNavigation";
+import BottomNavigationBar from "./app/common/components/BottomNavigationBar";
 
 const Stack = createNativeStackNavigator();
-const Tab = createMaterialBottomTabNavigator();
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -72,28 +69,15 @@ export default function App() {
     return null;
   }
 
-  function ProfileScreen() {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Home!</Text>
-      </View>
-    );
-  }
-
-  function SettingsScreen() {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Settings!</Text>
-      </View>
-    );
-  }
-
   return (
     <NavigationContainer onReady={onLayoutRootView}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Home" component={BottomNavigationBar} />
+        <Stack.Screen name={RoutesName.LOGIN} component={LoginScreen} />
+        <Stack.Screen name={RoutesName.REGISTER} component={RegisterScreen} />
+        <Stack.Screen
+          name={RoutesName.HOME_DRAWER}
+          component={DrawerNavigation}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
