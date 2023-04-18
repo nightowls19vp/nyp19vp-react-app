@@ -11,7 +11,9 @@ export default {
 
   STORAGE: "Quản lý kho",
 
+  PROFILE_STACK: "Profile stack",
   PROFILE: "Trang cá nhân",
+  EDIT_PROFILE: "Chỉnh sửa thông tin cá nhân",
 
   SETTINGS: "Cài đặt",
 };

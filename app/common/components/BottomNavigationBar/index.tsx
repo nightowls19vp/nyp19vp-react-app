@@ -7,6 +7,9 @@ import { Colors } from "../../../constants/Colors";
 import RoutesName from "../../../constants/RoutesName";
 import HomeScreen from "../../../screens/home/screens/HomeScreen";
 import DrawerNavigation from "../DrawerNavigation";
+import ProfileScreen from "../../../screens/profile/screens/ProfileScreen";
+import EditProfileScreen from "../../../screens/profile/screens/EditProfileScreen";
+import styles from "./../../../screens/profile/screens/EditProfileScreen/styles/styles";
 
 function PackageScreen() {
   return (
@@ -24,11 +27,20 @@ function StorageScreen() {
   );
 }
 
-function ProfileScreen() {
+const ProfileStack = createNativeStackNavigator();
+
+function ProfileScreenStack() {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Profile!</Text>
-    </View>
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen
+        name={RoutesName.PROFILE}
+        component={ProfileScreen}
+      />
+      <ProfileStack.Screen
+        name={RoutesName.EDIT_PROFILE}
+        component={EditProfileScreen}
+      />
+    </ProfileStack.Navigator>
   );
 }
 
@@ -58,10 +70,13 @@ export default function BottomNavigationBar() {
         //   </Pressable>
         // ),
         headerShown: false,
-
+        tabBarHideOnKeyboard: true,
         tabBarLabelStyle: { paddingBottom: 6 },
         tabBarActiveTintColor: Colors.primary,
-        tabBarStyle: { height: 50, paddingBottom: 0 },
+        tabBarStyle: {
+          height: 50,
+          paddingBottom: 0,
+        },
       }}
     >
       <Tab.Screen
@@ -96,9 +111,10 @@ export default function BottomNavigationBar() {
       />
 
       <Tab.Screen
-        name={RoutesName.PROFILE}
-        component={ProfileScreen}
+        name={RoutesName.PROFILE_STACK}
+        component={ProfileScreenStack}
         options={{
+          title: "Trang cá nhân",
           tabBarIcon: ({ color }) => {
             return <Icon name="user" size={20} color={color} />;
           },

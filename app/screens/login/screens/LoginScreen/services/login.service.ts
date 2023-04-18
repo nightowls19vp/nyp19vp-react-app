@@ -13,6 +13,7 @@ export const login = async (loginInfo: ILoginReq) => {
       username: loginInfo.username,
       password: loginInfo.password,
     });
+    console.log(res.data);
 
     return res.data;
   } catch (error) {
@@ -52,7 +53,6 @@ export const validate = async (token: string): Promise<IValidateRes> => {
   const reqUrl = `${URL_HOST}${validateEndpoint}`;
   console.log(reqUrl);
 
-  const AuthStr = "Bearer ".concat(token);
   const res = await axios.get(reqUrl, {
     headers: {
       "Content-Type": "application/json",
