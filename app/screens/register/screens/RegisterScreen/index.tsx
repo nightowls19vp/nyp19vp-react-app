@@ -1,12 +1,16 @@
 import React from "react";
 import { TextInput, TouchableOpacity } from "react-native";
 import { View, Text, Image } from "react-native";
+import DatePicker from "react-native-modern-datepicker";
+import Modal from "react-native-modal";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { Colors } from "../../../../../app/constants/Colors";
-import styles from "./styles/styles";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import moment from "moment";
+
 import RoutesName from "../../../../constants/RoutesName";
+import { Colors } from "../../../../../app/constants/Colors";
+import styles from "./styles/styles";
 
 const RegisterSchema = Yup.object().shape({
   name: Yup.string().required("Vui lòng nhập họ và tên"),
@@ -18,13 +22,23 @@ const RegisterSchema = Yup.object().shape({
     .required("Vui lòng nhập mật khẩu"),
   phone: Yup.string()
     .max(10, "Số điện thoại không hợp lệ")
+    .matches(/^(\+84)|0([3|5|7|8|9])(\d{8})$/, "Số điện thoại không hợp lệ")
     .required("Vui lòng nhập số điện thoại"),
   dob: Yup.string().required("Vui lòng chọn ngày sinh"),
 });
 
 export default function RegisterScreen({ navigation }: { navigation: any }) {
   const [hidePassword, setHidePassword] = React.useState(true);
-  const [showIcon, setShowIcon] = React.useState(false);
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const date = new Date("01/12/2016");
+  const dateStr = moment(date, "DD/MM/YYYY").format();
+
+  const today = new Date();
+  const day = today.getDate().toString().padStart(2, "0");
+  const month = (today.getMonth() + 1).toString().padStart(2, "0");
+  const year = today.getFullYear().toString();
+
+  const todayFormatted = `${year}/${month}/${day}`;
 
   return (
     <Formik
@@ -146,9 +160,10 @@ export default function RegisterScreen({ navigation }: { navigation: any }) {
 
           <View style={[styles.inputContainer]}>
             <TextInput
+              editable={false}
               onChangeText={(value) => setFieldValue("dob", value)}
               onBlur={() => setFieldTouched("dob")}
-              style={{ flex: 1 }}
+              style={{ flex: 1, color: "black" }}
               placeholder={"Ngày sinh"}
               value={values.dob}
             />
@@ -157,13 +172,65 @@ export default function RegisterScreen({ navigation }: { navigation: any }) {
               <Icon
                 onPress={() => setFieldValue("dob", "")}
                 name={"times-circle"}
-                style={styles.inputIcon}
+                style={[styles.inputIcon, { marginRight: 10 }]}
               ></Icon>
             )}
+            <Icon
+              onPress={() => {
+                setModalVisible(!modalVisible);
+              }}
+              name={"calendar"}
+              style={styles.inputIcon}
+            ></Icon>
           </View>
-          {touched.dob && errors.dob && (
-            <Text style={styles.error}>{errors.dob}</Text>
-          )}
+
+          <Modal isVisible={modalVisible}>
+            <View style={styles.modal}>
+              <DatePicker
+                style={{ backgroundColor: "white" }}
+                mode="calendar"
+                locale="vi"
+                selected={todayFormatted}
+                onDateChange={(value) => {
+                  setFieldValue("dob", value);
+                }}
+                options={{
+                  textHeaderColor: Colors.text,
+                  textDefaultColor: Colors.text,
+                  selectedTextColor: "white",
+                  mainColor: Colors.primary,
+                  // borderColor: "#e0e0e0",
+                  borderColor: Colors.secondary,
+                }}
+              />
+
+              <View
+                style={{
+                  width: "80%",
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                  gap: 40,
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => setModalVisible(!modalVisible)}
+                  style={styles.buttonModal}
+                >
+                  <Text style={styles.textButtonModal}>Đóng</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => setModalVisible(!modalVisible)}
+                  style={styles.buttonModal}
+                >
+                  <Text style={styles.textButtonModal}>Chọn</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+
+          {errors.dob && <Text style={styles.error}>{errors.dob}</Text>}
 
           <TouchableOpacity
             onPress={() => {}}
@@ -173,12 +240,12 @@ export default function RegisterScreen({ navigation }: { navigation: any }) {
               { backgroundColor: isValid ? Colors.primary : Colors.disabled },
             ]}
           >
-            <Text style={styles.buttonText}>Đăng ký</Text>
+            <Text style={styles.textButton}>Đăng ký</Text>
           </TouchableOpacity>
 
           <View style={styles.dividerContainer}>
             <View style={styles.divider} />
-            <Text style={styles.dividerText}>Hoặc</Text>
+            <Text style={styles.textDivider}>Hoặc</Text>
             <View style={styles.divider} />
           </View>
 

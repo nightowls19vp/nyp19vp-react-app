@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  dividerText: { textAlignVertical: "center", color: "grey" },
+  textDivider: { textAlignVertical: "center", color: "grey" },
   divider: {
     marginVertical: 20,
     width: "40%",
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
   },
+  disabled: {},
   button: {
     width: "80%",
     content: "fill",
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     // backgroundColor: Colors.primary,
     borderRadius: 10,
   },
-  buttonText: {
+  textButton: {
     color: "white",
     fontSize: 20,
     fontWeight: "bold",
@@ -115,6 +116,24 @@ const styles = StyleSheet.create({
     color: Colors.error,
     textAlign: "left",
   },
+  modal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "30%",
+    backgroundColor: "white",
+    borderRadius: 10,
+    borderWidth: 1,
+    marginVertical: 150,
+  },
+  buttonModal: {
+    height: 30,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  textButtonModal: { color: Colors.text, fontSize: 16, fontWeight: "bold" },
 });
 
 export default styles;

@@ -161,25 +161,25 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
             </View>
             <TouchableOpacity
               onPress={() => {
-                login({
-                  username: values.email,
-                  password: values.password,
-                }).then((response: ILoginRes) => {
-                  console.log(response.data);
-                  if (response.statusCode === 200) {
-                    Toast.success(response.message, 1);
-                    navigation.navigate(
-                      RoutesName.HOME_DRAWER as never,
-                      {} as never
-                    );
-                  } else {
-                    Toast.fail(response.message, 1);
-                  }
-                });
-                // navigation.navigate(
-                //   RoutesName.HOME_DRAWER as never,
-                //   {} as never
-                // );
+                // login({
+                //   username: values.email,
+                //   password: values.password,
+                // }).then((response: ILoginRes) => {
+                //   console.log(response.data);
+                //   if (response.statusCode === 200) {
+                //     Toast.success(response.message, 1);
+                //     navigation.navigate(
+                //       RoutesName.HOME_DRAWER as never,
+                //       {} as never
+                //     );
+                //   } else {
+                //     Toast.fail(response.message, 1);
+                //   }
+                // });
+                navigation.navigate(
+                  RoutesName.HOME_DRAWER as never,
+                  {} as never
+                );
               }}
               disabled={!isValid}
               style={[
